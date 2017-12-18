@@ -99,10 +99,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\IDocumentProcesser.cs" />
+    <Compile Include="Abstractions\ITechnicalCertificateValidatior.cs" />
     <Compile Include="Abstractions\IWordFinder.cs" />
     <Compile Include="Abstractions\IWordMatcher.cs" />
     <Compile Include="AppKeys\WordLabels.cs" />
     <Compile Include="BodyCodeFinder.cs" />
+    <Compile Include="SONumFinder .cs" />
+    <Compile Include="ReceptionNumFinder.cs" />
     <Compile Include="ChassisNumFinder.cs" />
     <Compile Include="ColorFinder.cs" />
     <Compile Include="FirstRegistrationDateFinder.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="MatriculNumFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TechnicalCertificateImageProcesser.cs" />
+    <Compile Include="TechnicalCertificateValidatior.cs" />
     <Compile Include="TypeFinder.cs" />
     <Compile Include="VehicleCertificateContentDTO.cs" />
     <Compile Include="WordMatcher.cs" />

@@ -24,29 +24,29 @@ namespace TechnicalCertificateImgHandler
             //Set "Farbe" label coordinates range.
             if (word.TargetValueOrder == 0)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y;
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 2.65);
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.5);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 2.85);
                 X = X + Math.Round(wordLenght * 3.12);
             }
             //Set "Couleur" label coordinates range.
             if (word.TargetValueOrder == 1)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - wordHeight;
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.6);
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.5);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.8);
                 X = X + Math.Round(wordLenght * 2.03);
             }
             //Set "Colore" label coordinates range.
             if (word.TargetValueOrder == 2)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(1.7 * wordHeight);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight);
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(2.2 * wordHeight);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.2);
                 X = X + Math.Round(wordLenght * 2.75);
             }
             //Set "Colur" label coordinates range.
             if (word.TargetValueOrder == 3)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2.7);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y;
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 3.2);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.2);
                 X = X + Math.Round(wordLenght * 3.5);
             }
 

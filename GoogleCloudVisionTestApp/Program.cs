@@ -43,20 +43,16 @@ namespace GoogleCloudVisionTestApp
                     new TechnicalCertificateImgHandler.BodyCodeFinder(response),
                     new TechnicalCertificateImgHandler.ColorFinder(response),
                     new TechnicalCertificateImgHandler.MatriculNumFinder(response),
-                    new TechnicalCertificateImgHandler.FirstRegistrationDateFinder(response));
+                    new TechnicalCertificateImgHandler.FirstRegistrationDateFinder(response),
+                    new TechnicalCertificateImgHandler.ReceptionNumFinder(response),
+                    new TechnicalCertificateImgHandler.SONumFinder(response),
+                    new TechnicalCertificateImgHandler.TechnicalCertificateValidatior());
+
                 TechnicalCertificateImgHandler.VehicleCertificateContentDTO result = docProcesser.Process();
-
-                //IDocumentProcesser docProcesser = new TechnicalCertificateImageProcesser(new WordMatcher(response),
-                //                        new TypeFinder(response),
-                //                        new MarkAndModelFinder(response),
-                //                        new ChassisNumFinder(response),
-                //                        new BodyCodeFinder(response),
-                //                        new ColorFinder(response),
-                //                        new MatriculNumFinder(response),
-                //                        new FirstRegistrationDateFinder(response));
-                //VehicleCertificateContentDTO result = docProcesser.Process();
-
+                
                 Console.WriteLine($"processed file# {images.IndexOf(img) + 1}");
+                Console.WriteLine("   - SO Num:         " + result.SONo);
+                Console.WriteLine("   - Reception Num:  " + result.ReceptionNum);
                 Console.WriteLine("   - Type:           " + result.Type);
                 Console.WriteLine("   - Type code:      " + result.TypeCode);
                 Console.WriteLine("   - Body:           " + result.Body);
@@ -74,6 +70,15 @@ namespace GoogleCloudVisionTestApp
 
 
 
+            //IDocumentProcesser docProcesser = new TechnicalCertificateImageProcesser(new WordMatcher(response),
+            //                        new TypeFinder(response),
+            //                        new MarkAndModelFinder(response),
+            //                        new ChassisNumFinder(response),
+            //                        new BodyCodeFinder(response),
+            //                        new ColorFinder(response),
+            //                        new MatriculNumFinder(response),
+            //                        new FirstRegistrationDateFinder(response));
+            //VehicleCertificateContentDTO result = docProcesser.Process();
 
 
 

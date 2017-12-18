@@ -86,6 +86,23 @@ namespace TechnicalCertificateImgHandler
             WordLabelCodes.FIRST_REGISTRATION_DATE_L7
         };
 
+        //"Typengenehmigung", "Reception", "Approvazione", "Approvaziun"
+        private readonly List<string> targetReceptionNumLabels = new List<string>()
+        {
+            WordLabelCodes.RECEPTION_NUM_L1,
+            WordLabelCodes.RECEPTION_NUM_L2,
+            WordLabelCodes.RECEPTION_NUM_L3,
+            WordLabelCodes.RECEPTION_NUM_L4
+        };
+
+        //"Schild", "Plaque", "Targa", "Numer"
+        private readonly List<string> targetSoNumLabels = new List<string>()
+        {
+            WordLabelCodes.SONum_l1,
+            WordLabelCodes.SONum_l2,
+            WordLabelCodes.SONum_l3,
+            WordLabelCodes.SONum_l4
+        };
 
         private readonly IWordMatcher wordMatcher;
         private readonly IWordFinder typeFinder;
@@ -95,7 +112,11 @@ namespace TechnicalCertificateImgHandler
         private readonly IWordFinder colorFinder;
         private readonly IWordFinder matriculNumFinder;
         private readonly IWordFinder firstRegistrationDateFinder;
-        
+        private readonly IWordFinder receptionNumFinder;
+        private readonly IWordFinder soNumFinder;
+
+        private readonly ITechnicalCertificateValidatior validator;
+
         public TechnicalCertificateImageProcesser(IWordMatcher wordMatcher, 
                             IWordFinder typeFinder,
                             IWordFinder markAndModelFinder,
@@ -103,7 +124,10 @@ namespace TechnicalCertificateImgHandler
                             IWordFinder bodyCodeFinder,
                             IWordFinder colorFinder,
                             IWordFinder matriculNumFinder,
-                            IWordFinder firstRegistrationDateFinder)
+                            IWordFinder firstRegistrationDateFinder,
+                            IWordFinder receptionNumFinder,
+                            IWordFinder soNumFinder,
+                            ITechnicalCertificateValidatior validator)
         {
             this.wordMatcher = wordMatcher;
             this.typeFinder = typeFinder;
@@ -113,6 +137,9 @@ namespace TechnicalCertificateImgHandler
             this.colorFinder = colorFinder;
             this.matriculNumFinder = matriculNumFinder;
             this.firstRegistrationDateFinder = firstRegistrationDateFinder;
+            this.receptionNumFinder = receptionNumFinder;
+            this.soNumFinder = soNumFinder;
+            this.validator = validator;
         }
 
         public VehicleCertificateContentDTO Process()
@@ -130,20 +157,23 @@ namespace TechnicalCertificateImgHandler
             string color = FindColor();
             string matriculNum = FindMatriculNum();
             string firstRegistrationDate = FindFirstRegistrationDate();
+            string receptionNum = FindReceptionNum();
+            string soNum = FindSoNum();
 
             return
                 new VehicleCertificateContentDTO()
                 {
-
+                    SONo = soNum,
+                    ReceptionNum = receptionNum,
                     Type = typeValue,
                     TypeCode = typeCode,
                     Body = bodyValue,
                     BodyCode = bodyCode,
                     MarkAndModel = markAndModel,
-                    ChassisNum = chassisNum,
+                    ChassisNum = chassisNum.ToUpper(),
                     Color = color,
-                    MatriculNum = matriculNum,
-                    FirstRegistrationDate = firstRegistrationDate
+                    MatriculNum = matriculNum.Replace(" ", string.Empty),
+                    FirstRegistrationDate = firstRegistrationDate.Replace(" ", string.Empty)
                 };
         }
 
@@ -370,6 +400,72 @@ namespace TechnicalCertificateImgHandler
             }           
 
             return firstRegistrationDateSplitWords;
+        }
+
+        private string FindReceptionNum()
+        {
+            string receptionNumSplitWords = string.Empty;
+
+            var receptionNumMatchedWords = wordMatcher.GetMatchedWords(targetReceptionNumLabels);
+            if (receptionNumMatchedWords.Count == 0)
+            {
+                //TO DO add log info
+                return receptionNumSplitWords;
+            }
+
+            foreach (var matchedWord in receptionNumMatchedWords)
+            {
+                var receptionNumWords = receptionNumFinder.FindWords(matchedWord);
+                if (receptionNumWords.Count == 0)
+                {
+                    //TO DO add log info
+                }
+                else
+                {
+                    receptionNumSplitWords = GetWordsText(receptionNumWords);
+                }
+
+
+                if (!string.IsNullOrEmpty(receptionNumSplitWords))
+                {
+                    break;
+                }
+            }
+
+            return receptionNumSplitWords;
+        }
+
+        private string FindSoNum()
+        {
+            string soNumSplitWords = string.Empty;
+
+            var soNumMatchedWords = wordMatcher.GetMatchedWords(targetSoNumLabels);
+            if (soNumMatchedWords.Count == 0)
+            {
+                //TO DO add log info
+                return soNumSplitWords;
+            }
+
+            foreach (var matchedWord in soNumMatchedWords)
+            {
+                var soNumWords = soNumFinder.FindWords(matchedWord);
+                if (soNumWords.Count == 0)
+                {
+                    //TO DO add log info
+                }
+                else
+                {
+                    soNumSplitWords = GetWordsText(soNumWords);
+                }
+
+
+                if (!string.IsNullOrEmpty(soNumSplitWords))
+                {
+                    break;
+                }
+            }
+
+            return soNumSplitWords;
         }
 
         private string GetWordsText(IList<Word> words)

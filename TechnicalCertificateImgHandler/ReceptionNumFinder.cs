@@ -5,11 +5,11 @@ using TechnicalCertificateImgHandler.Abstractions;
 
 namespace TechnicalCertificateImgHandler
 {
-    public class MatriculNumFinder : IWordFinder
+    public class ReceptionNumFinder : IWordFinder
     {
         private readonly TextAnnotation annotationContext;
 
-        public MatriculNumFinder(TextAnnotation annotationContext)
+        public ReceptionNumFinder(TextAnnotation annotationContext)
         {
             this.annotationContext = annotationContext;
         }
@@ -22,40 +22,40 @@ namespace TechnicalCertificateImgHandler
             double Y2 = 0;
             double X1 = word.MatchedWord.BoundingBox.Vertices[1].X;
             double X2 = X1;
-            //Set "Stammnummer" label coordinates range.
+            //Set "Typengenehmigung" label coordinates range.
             if (word.TargetValueOrder == 0)
             {
                 Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.5);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 2.6);
-                X1 = X1 + Math.Round(wordLenght * 0.45);
-                X2 = X2 + Math.Round(wordLenght * 3);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 3);
+                X1 = X1 + Math.Round(wordLenght * 0.14);
+                X2 = X2 + Math.Round(wordLenght * 2.1);
             }
-            //Set "matricule" label coordinates range.
+            //Set "Reception" label coordinates range.
             if (word.TargetValueOrder == 1)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.5);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.8);
-                X1 = X1 + Math.Round(wordLenght * 1.35);
-                X2 = X2 + Math.Round(wordLenght * 6.2);
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.3);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 2.3);
+                X1 = X1 + Math.Round(wordLenght * 1.15);
+                X2 = X2 + Math.Round(wordLenght * 4.7);
             }
-            //Set "matricola" label coordinates range.
+            //Set "Approvazione" label coordinates range.
             if (word.TargetValueOrder == 2)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.9);
-                X1 = X1 + Math.Round(wordLenght * 1.1);
-                X2 = X2 + Math.Round(wordLenght * 6.05);
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2.3);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.3);
+                X1 = X1 + Math.Round(wordLenght * 0.73);
+                X2 = X2 + Math.Round(wordLenght * 3.8);
             }
-            //Set "matricla" label coordinates range.
+            //Set "Approvaziun" label coordinates range.
             if (word.TargetValueOrder == 3)
             {
                 Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 3);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.3);
-                X1 = X1 + Math.Round(wordLenght * 1.2);
-                X2 = X2 + Math.Round(wordLenght * 7.1);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.5);
+                X1 = X1 + Math.Round(wordLenght * 0.83);
+                X2 = X2 + Math.Round(wordLenght * 4.1);
             }
 
-            IList<Word> matriculeNumMatchedWords = new List<Word>();
+            IList<Word> receptionNumMatchedWords = new List<Word>();
 
             foreach (var block in annotationContext.Pages[0].Blocks)
             {
@@ -69,13 +69,13 @@ namespace TechnicalCertificateImgHandler
                         int blokX2 = w.BoundingBox.Vertices[1].X;
                         if (blokY1 > Y1 && blokY2 < Y2 && blokX1 > X1 && blokX2 < X2)
                         {
-                            matriculeNumMatchedWords.Add(w);
+                            receptionNumMatchedWords.Add(w);
                         }
                     }
                 }
             }
 
-            return matriculeNumMatchedWords;
+            return receptionNumMatchedWords;
         }
     }
 }

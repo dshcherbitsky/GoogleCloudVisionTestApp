@@ -25,56 +25,56 @@ namespace TechnicalCertificateImgHandler
             //Set "Inverkehrsetzung" label coordinates range.
             if (word.TargetValueOrder == 0)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y;
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + 2 * wordHeight;
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.5);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 2.2);
                 X1 = X1 + Math.Round(wordLenght * 0.3);
                 X2 = X2 + Math.Round(wordLenght * 2.75);
             }
             //Set "mise" label coordinates range.
             if (word.TargetValueOrder == 1)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.8);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + wordHeight;
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.3);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.2);
                 X1 = X1 + Math.Round(wordLenght * 4.3);
                 X2 = X2 + Math.Round(wordLenght * 15.2);
             }
             //Set "circulation" label coordinates range.
             if (word.TargetValueOrder == 2)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.8);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + wordHeight;
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.3);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.2);
                 X1 = X1 + Math.Round(wordLenght * 0.3);
                 X2 = X2 + Math.Round(wordLenght * 4.8);
             }
             //Set "messa" label coordinates range.
             if (word.TargetValueOrder == 3)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - wordHeight;
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.5);
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.5);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.7);
                 X1 = X1 + Math.Round(wordLenght * 3);
                 X2 = X2 + Math.Round(wordLenght * 10.9);
             }
             //Set "circolazione" label coordinates range.
             if (word.TargetValueOrder == 4)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - wordHeight;
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + +Math.Round(wordHeight * 0.5);
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.5);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.7);
                 X1 = X1 + Math.Round(wordLenght * 0.2);
                 X2 = X2 + Math.Round(wordLenght * 4.1);
             }
             //Set "entrada" label coordinates range.
             if (word.TargetValueOrder == 5)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - 2 * wordHeight;
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y;
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2.5);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.2);
                 X1 = X1 + Math.Round(wordLenght * 2.2);
                 X2 = X2 + Math.Round(wordLenght * 8.3);
             }
-            //Set "{" label coordinates range.
+            //Set "circulaziun" label coordinates range.
             if (word.TargetValueOrder == 6)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - 2 * wordHeight;
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y;
+                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2.5);
+                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.2);
                 X1 = X1 + Math.Round(wordLenght * 0.2);
                 X2 = X2 + Math.Round(wordLenght * 4.8);
             }
@@ -91,7 +91,7 @@ namespace TechnicalCertificateImgHandler
                         int blokY2 = w.BoundingBox.Vertices[3].Y;
                         int blokX1 = w.BoundingBox.Vertices[0].X;
                         int blokX2 = w.BoundingBox.Vertices[1].X;
-                        if (blokY2 > Y1 && blokY1 < Y2 && blokX1 > X1 && blokX2 < X2)
+                        if (blokY1 > Y1 && blokY2 < Y2 && blokX1 > X1 && blokX2 < X2)
                         {
                             firstRegistrationDateMatchedWords.Add(w);
                         }
