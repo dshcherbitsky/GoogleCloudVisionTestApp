@@ -1,10 +1,10 @@
 ﻿using Google.Cloud.Vision.V1;
 using System;
 using System.Collections.Generic;
-using TechnicalCertificateImgHandler.Abstractions;
-using static TechnicalCertificateImgHandler.AppKeys.ApplicationKeys;
+using TechnicalCertificateImageHandler.Infrastructure.Abstractions;
+using static TechnicalCertificateImageHandler.AppKeys.ApplicationKeys;
 
-namespace TechnicalCertificateImgHandler
+namespace TechnicalCertificateImageHandler.Infrastructure.WordsFinders
 {
     public class TypeFinder : IWordFinder
     {

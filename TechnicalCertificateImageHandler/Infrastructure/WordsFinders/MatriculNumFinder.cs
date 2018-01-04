@@ -1,16 +1,16 @@
 ﻿using Google.Cloud.Vision.V1;
 using System;
 using System.Collections.Generic;
-using TechnicalCertificateImgHandler.Abstractions;
-using static TechnicalCertificateImgHandler.AppKeys.ApplicationKeys;
+using TechnicalCertificateImageHandler.Infrastructure.Abstractions;
+using static TechnicalCertificateImageHandler.AppKeys.ApplicationKeys;
 
-namespace TechnicalCertificateImgHandler
+namespace TechnicalCertificateImageHandler.Infrastructure.WordsFinders
 {
-    public class ReceptionNumFinder : IWordFinder
+    public class MatriculNumFinder : IWordFinder
     {
         private readonly TextAnnotation annotationContext;
 
-        public ReceptionNumFinder(TextAnnotation annotationContext)
+        public MatriculNumFinder(TextAnnotation annotationContext)
         {
             this.annotationContext = annotationContext;
         }
@@ -28,33 +28,33 @@ namespace TechnicalCertificateImgHandler
 
             switch (labelType)
             {
-                //Set "Typengenehmigung" label coordinates range.
+                //Set "Stammnummer" label coordinates range.
                 case LabelTypes.Label_1_1:
                     Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.5);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 3);
-                    X1 = X1 + Math.Round(wordLenght * 0.14);
-                    X2 = X2 + Math.Round(wordLenght * 2.1);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 2.6);
+                    X1 = X1 + Math.Round(wordLenght * 0.45);
+                    X2 = X2 + Math.Round(wordLenght * 3);
                     break;
-                //Set "Reception" label coordinates range.
+                //Set "matricule" label coordinates range.
                 case LabelTypes.Label_2_1:
-                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.3);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 2.3);
-                    X1 = X1 + Math.Round(wordLenght * 1.15);
-                    X2 = X2 + Math.Round(wordLenght * 4.7);
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.5);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.8);
+                    X1 = X1 + Math.Round(wordLenght * 1.35);
+                    X2 = X2 + Math.Round(wordLenght * 6.2);
                     break;
-                //Set "Approvazione" label coordinates range.
+                //Set "matricola" label coordinates range.
                 case LabelTypes.Label_3_1:
-                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2.3);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.3);
-                    X1 = X1 + Math.Round(wordLenght * 0.73);
-                    X2 = X2 + Math.Round(wordLenght * 3.8);
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.9);
+                    X1 = X1 + Math.Round(wordLenght * 1.1);
+                    X2 = X2 + Math.Round(wordLenght * 6.05);
                     break;
-                //Set "Approvaziun" label coordinates range.
+                //Set "matricla" label coordinates range.
                 case LabelTypes.Label_4_1:
                     Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 3);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.5);
-                    X1 = X1 + Math.Round(wordLenght * 0.83);
-                    X2 = X2 + Math.Round(wordLenght * 4.1);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.3);
+                    X1 = X1 + Math.Round(wordLenght * 1.2);
+                    X2 = X2 + Math.Round(wordLenght * 7.1);
                     break;
                 default:
                     // TODO Add log information

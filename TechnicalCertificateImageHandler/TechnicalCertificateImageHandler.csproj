@@ -4,18 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{36B80DA3-BEEF-4906-ACFD-F3B20C706618}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>GoogleCloudVisionTestApp</RootNamespace>
-    <AssemblyName>GoogleCloudVisionTestApp</AssemblyName>
+    <ProjectGuid>{133515A6-A511-4B23-8853-4ED7DD75EC2D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TechnicalCertificateImageHandler</RootNamespace>
+    <AssemblyName>TechnicalCertificateImageHandler</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -75,7 +73,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Interactive.Async, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll</HintPath>
     </Reference>
@@ -101,34 +98,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstraction\IDocumentProcesser.cs" />
-    <Compile Include="Abstraction\IWordFinder.cs" />
-    <Compile Include="Abstraction\IWordMatcher.cs" />
-    <Compile Include="ImageHelper.cs" />
-    <Compile Include="Model\ChassisNumFinder.cs" />
-    <Compile Include="Model\MarkAndModelFinder.cs" />
-    <Compile Include="Model\BodyCodeFinder.cs" />
-    <Compile Include="Model\ColorFinder.cs" />
-    <Compile Include="Model\MatriculNumFinder.cs" />
-    <Compile Include="Model\FirstRegistrationDateFinder.cs" />
-    <Compile Include="Model\TypeFinder.cs" />
-    <Compile Include="Model\WordLabels.cs" />
-    <Compile Include="Model\WordMatcher.cs" />
-    <Compile Include="Model\MatchedAnnotation.cs" />
-    <Compile Include="Model\TechnicalCertificateImageProcesser.cs" />
-    <Compile Include="Model\VehicleCertificateContentDTO.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="AppKeys\WordLabels.cs" />
+    <Compile Include="Infrastructure\Abstractions\IDocumentProcesser.cs" />
+    <Compile Include="Infrastructure\Abstractions\IITechnicalCertificateService.cs" />
+    <Compile Include="Infrastructure\Abstractions\ITechnicalCertificateValidatior.cs" />
+    <Compile Include="Infrastructure\Abstractions\IWordFinder.cs" />
+    <Compile Include="Infrastructure\Abstractions\IWordMatcher.cs" />
+    <Compile Include="Infrastructure\Models\VehicleCertificateContentDTO.cs" />
+    <Compile Include="Infrastructure\Models\WordLabel.cs" />
+    <Compile Include="Infrastructure\TechnicalCertificateService.cs" />
+    <Compile Include="Infrastructure\TechnicalCertificateValidatior.cs" />
+    <Compile Include="Infrastructure\WordMatcher.cs" />
+    <Compile Include="Infrastructure\WordsFinders\BodyCodeFinder.cs" />
+    <Compile Include="Infrastructure\WordsFinders\ChassisNumFinder.cs" />
+    <Compile Include="Infrastructure\WordsFinders\ColorFinder.cs" />
+    <Compile Include="Infrastructure\WordsFinders\FirstRegistrationDateFinder.cs" />
+    <Compile Include="Infrastructure\WordsFinders\MarkAndModelFinder.cs" />
+    <Compile Include="Infrastructure\WordsFinders\MatriculNumFinder.cs" />
+    <Compile Include="Infrastructure\WordsFinders\ReceptionNumFinder.cs" />
+    <Compile Include="Infrastructure\WordsFinders\SONumFinder .cs" />
+    <Compile Include="Infrastructure\WordsFinders\TypeFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TechnicalCertificateImageProcesser.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TechnicalCertificateImageHandler\TechnicalCertificateImageHandler.csproj">
-      <Project>{133515a6-a511-4b23-8853-4ed7dd75ec2d}</Project>
-      <Name>TechnicalCertificateImageHandler</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Grpc.Core.1.6.1\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.6.1\build\net45\Grpc.Core.targets')" />

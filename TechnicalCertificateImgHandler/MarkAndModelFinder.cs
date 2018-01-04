@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TechnicalCertificateImgHandler.Abstractions;
+using static TechnicalCertificateImgHandler.AppKeys.ApplicationKeys;
 
 namespace TechnicalCertificateImgHandler
 {
@@ -14,71 +15,70 @@ namespace TechnicalCertificateImgHandler
             this.annotationContext = annotationContext;
         }
 
-        public IList<Word> FindWords(MatchedAnnotation word)
+        public IList<Word> FindWords(Word word, LabelTypes labelType)
         {
-            double wordHeight = word.MatchedWord.BoundingBox.Vertices[3].Y - word.MatchedWord.BoundingBox.Vertices[0].Y;
-            double wordLenght = word.MatchedWord.BoundingBox.Vertices[1].X - word.MatchedWord.BoundingBox.Vertices[0].X;
+            IList<Word> words = new List<Word>();
+
+            double wordHeight = word.BoundingBox.Vertices[3].Y - word.BoundingBox.Vertices[0].Y;
+            double wordLenght = word.BoundingBox.Vertices[1].X - word.BoundingBox.Vertices[0].X;
             double Y1 = 0;
             double Y2 = 0;
-            double X = word.MatchedWord.BoundingBox.Vertices[1].X;
-            //Set "Marke" label coordinates range.
-            if (word.TargetValueOrder == 0)
+            double X = word.BoundingBox.Vertices[1].X;
+            
+            switch (labelType)
             {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.5);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 3);
-                X = X + Math.Round(wordLenght * 3.1);
+                //Set "Marke" label coordinates range.
+                case LabelTypes.Label_1_1:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.5);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 3);
+                    X = X + Math.Round(wordLenght * 3.1);
+                    break;
+                //Set "Typ" label coordinates range.
+                case LabelTypes.Label_1_2:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.5);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 3);
+                    X = X + Math.Round(wordLenght * 2.3);
+                    break;
+                //Set "Marque" label coordinates range.
+                case LabelTypes.Label_2_1:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.2);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.6);
+                    X = X + Math.Round(wordLenght * 2.1);
+                    break;
+                //Set "type" label coordinates range.
+                case LabelTypes.Label_2_2:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.2);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.6);
+                    X = X + Math.Round(wordLenght * 1.6);
+                    break;
+                //Set "Marca" label coordinates range.
+                case LabelTypes.Label_3_1:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.15);
+                    X = X + Math.Round(wordLenght * 3.2);
+                    break;
+                //Set "tipo" label coordinates range.
+                case LabelTypes.Label_3_2:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.15);
+                    X = X + Math.Round(wordLenght * 3.1);
+                    break;
+                //Set "Marca" label coordinates range.
+                case LabelTypes.Label_4_1:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 3.5);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.3);
+                    X = X + Math.Round(wordLenght * 5);
+                    break;
+                //Set "tig" label coordinates range.
+                case LabelTypes.Label_4_2:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 3.5);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.3); ;
+                    X = X + Math.Round(wordLenght * 9);
+                    break;
+                default:
+                    // TODO Add log information
+                    return words;
             }
-            //Set "Typ" label coordinates range.
-            if (word.TargetValueOrder == 1)
-            {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.5);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 3);
-                X = X + Math.Round(wordLenght * 2.3);
-            }
-            //Set "Marque" label coordinates range.
-            if (word.TargetValueOrder == 2)
-            {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.2);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.6);
-                X = X + Math.Round(wordLenght * 2.1);
-            }
-            //Set "type" label coordinates range.
-            if (word.TargetValueOrder == 3)
-            {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.2);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.6);
-                X = X + Math.Round(wordLenght * 1.6);
-            }
-            //Set "Marca" label coordinates range.
-            if (word.TargetValueOrder == 4)
-            {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.15);
-                X = X + Math.Round(wordLenght * 3.2);
-            }
-            //Set "tipo" label coordinates range.
-            if (word.TargetValueOrder == 5)
-            {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.15);
-                X = X + Math.Round(wordLenght * 3.1);
-            }
-            //Set "Marca" label coordinates range.
-            if (word.TargetValueOrder == 6)
-            {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 3.5);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.3);
-                X = X + Math.Round(wordLenght * 5);
-            }
-            //Set "tig" label coordinates range.
-            if (word.TargetValueOrder == 7)
-            {
-                Y1 = word.MatchedWord.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 3.5);
-                Y2 = word.MatchedWord.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.3); ;
-                X = X + Math.Round(wordLenght * 9);
-            }
-
-            IList<Word> markAndModelMatchedWords = new List<Word>();
 
             foreach (var block in annotationContext.Pages[0].Blocks)
             {
@@ -92,13 +92,13 @@ namespace TechnicalCertificateImgHandler
                         int blokX2 = w.BoundingBox.Vertices[1].X;
                         if (blokY1 > Y1 && blokY2 < Y2 && blokX2 > X)
                         {
-                            markAndModelMatchedWords.Add(w);
+                            words.Add(w);
                         }
                     }
                 }
             }
 
-            return markAndModelMatchedWords;
+            return words;
         }
     }
 }

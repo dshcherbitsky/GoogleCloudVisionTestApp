@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using TechnicalCertificateImgHandler.Abstractions;
 using TechnicalCertificateImgHandler.AppKeys;
+using static TechnicalCertificateImgHandler.AppKeys.ApplicationKeys;
 
 namespace TechnicalCertificateImgHandler
 {
@@ -115,9 +116,12 @@ namespace TechnicalCertificateImgHandler
         private readonly IWordFinder receptionNumFinder;
         private readonly IWordFinder soNumFinder;
 
+        ITechnicalCertificateService technicalCertificateService
+
         private readonly ITechnicalCertificateValidatior validator;
 
-        public TechnicalCertificateImageProcesser(IWordMatcher wordMatcher, 
+        public TechnicalCertificateImageProcesser(ITechnicalCertificateService technicalCertificateService,
+                            IWordMatcher wordMatcher, 
                             IWordFinder typeFinder,
                             IWordFinder markAndModelFinder,
                             IWordFinder chassisNumFinder,
@@ -129,6 +133,7 @@ namespace TechnicalCertificateImgHandler
                             IWordFinder soNumFinder,
                             ITechnicalCertificateValidatior validator)
         {
+            this.technicalCertificateService = technicalCertificateService;
             this.wordMatcher = wordMatcher;
             this.typeFinder = typeFinder;
             this.markAndModelFinder = markAndModelFinder;
@@ -176,6 +181,138 @@ namespace TechnicalCertificateImgHandler
                     FirstRegistrationDate = firstRegistrationDate.Replace(" ", string.Empty)
                 };
         }
+
+
+        public string GetTypeRawValue(IList<string> targetTypeLabels)
+        {
+            string rawValue = string.Empty;
+            foreach (var label in targetTypeLabels)
+            {
+                rawValue = technicalCertificateService.GetTypeRawValueByLabel(label, );
+                if (!string.IsNullOrEmpty(rawValue))
+                {
+                    return rawValue;
+                }
+            }
+
+            return rawValue;
+        }
+        public string GetMarkAndModelRawValue(IList<string> targetMarkAndModelLabels)
+        {
+            string rawValue = string.Empty;
+            foreach (var label in targetMarkAndModelLabels)
+            {
+                rawValue = technicalCertificateService.GetMarkAndModelValueByLabel(label);
+                if (!string.IsNullOrEmpty(rawValue))
+                {
+                    return rawValue;
+                }
+            }
+
+            return rawValue;
+        }
+        public string GetChassisNumRawValue(IList<string> targetChassisNumLabels)
+        {
+            string rawValue = string.Empty;
+            foreach (var label in targetChassisNumLabels)
+            {
+                rawValue = technicalCertificateService.GetChassisNumRawValueByLabel(label);
+                if (!string.IsNullOrEmpty(rawValue))
+                {
+                    return rawValue;
+                }
+            }
+
+            return rawValue;
+        }
+        public string GetBodyRawValue(IList<string> targetBodyCodeLabels)
+        {
+            string rawValue = string.Empty;
+            foreach (var label in targetBodyCodeLabels)
+            {
+                rawValue = technicalCertificateService.GetBodyRawValueByLabel(label);
+                if (!string.IsNullOrEmpty(rawValue))
+                {
+                    return rawValue;
+                }
+            }
+
+            return rawValue;
+        }
+        public string GetColorRawValue(IList<string> targetColorLabels)
+        {
+            string rawValue = string.Empty;
+            foreach (var label in targetColorLabels)
+            {
+                rawValue = technicalCertificateService.GetColorRawValueByLabel(label);
+                if (!string.IsNullOrEmpty(rawValue))
+                {
+                    return rawValue;
+                }
+            }
+
+            return rawValue;
+        }
+        public string GetMatriculNumRawValue(IList<string> targetMatriculeNumLabels)
+        {
+            string rawValue = string.Empty;
+            foreach (var label in targetMatriculeNumLabels)
+            {
+                rawValue = technicalCertificateService.GetMatriculNumRawValueByLabel(label);
+                if (!string.IsNullOrEmpty(rawValue))
+                {
+                    return rawValue;
+                }
+            }
+
+            return rawValue;
+        }
+        public string GetFirstRegistrationDateRawValue(IList<string> targetFirstRegistrationDateLabels)
+        {
+            string rawValue = string.Empty;
+            foreach (var label in targetFirstRegistrationDateLabels)
+            {
+                rawValue = technicalCertificateService.GetFirstRegistrationDateRawValueByLabel(label);
+                if (!string.IsNullOrEmpty(rawValue))
+                {
+                    return rawValue;
+                }
+            }
+
+            return rawValue;
+        }
+        public string GetReceptionNumRawValue(IList<string> targetReceptionNumLabels)
+        {
+            string rawValue = string.Empty;
+            foreach (var label in targetReceptionNumLabels)
+            {
+                rawValue = technicalCertificateService.GetReceptionNumRawValueByLabel(label);
+                if (!string.IsNullOrEmpty(rawValue))
+                {
+                    return rawValue;
+                }
+            }
+
+            return rawValue;
+        }
+        public string GetSoNumRawValue(IList<string> targetSoNumLabels)
+        {
+            string rawValue = string.Empty;
+            foreach (var label in targetSoNumLabels)
+            {
+                rawValue = technicalCertificateService.GetSoNumRawValueByLabel(label);
+                if (!string.IsNullOrEmpty(rawValue))
+                {
+                    return rawValue;
+                }
+            }
+
+            return rawValue;
+        }
+
+
+
+
 
         private string FindType()
         {

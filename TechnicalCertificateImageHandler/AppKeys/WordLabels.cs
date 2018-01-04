@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TechnicalCertificateImgHandler.AppKeys
+﻿namespace TechnicalCertificateImageHandler.AppKeys
 {
     public class ApplicationKeys
     {
@@ -29,10 +26,10 @@ namespace TechnicalCertificateImgHandler.AppKeys
         /// </summary>
         public class WordLabelCodes
         {
-            public static string SONum_l1 = "Schild";
-            public static string SONum_l2 = "Plaque";
-            public static string SONum_l3 = "Targa";
-            public static string SONum_l4 = "Numer";
+            public static string SONum_L1 = "Schild";
+            public static string SONum_L2 = "Plaque";
+            public static string SONum_L3 = "Targa";
+            public static string SONum_L4 = "Numer";
 
             public static string TYPE_CODE_L1 = "Art";
             public static string TYPE_CODE_L2 = "Fahrzeugs";
@@ -49,6 +46,8 @@ namespace TechnicalCertificateImgHandler.AppKeys
             public static string MARK_AND_MODEL_L4 = "type";
             public static string MARK_AND_MODEL_L5 = "Marca";
             public static string MARK_AND_MODEL_L6 = "tipo";
+            public static string MARK_AND_MODEL_L7 = "Marca";
+            public static string MARK_AND_MODEL_L8 = "tig";
 
             public static string CHASSIS_NUM_L1 = "Fahrgestell";
             public static string CHASSIS_NUM_L2 = "Nr.";
@@ -87,59 +86,64 @@ namespace TechnicalCertificateImgHandler.AppKeys
         }
 
         /// <summary>
-        /// Represents Technical Certificate detected data validation error descriptions.
+        /// Represents Technical Certificate detected data validation errors description.
         /// </summary>
         public class TechnicalCertificateValidation
         {
             /// <summary>
-            /// Represents body detected error notification description.
+            /// Represents body detection error description.
             /// </summary>
-            public const string BODY_ERROR = "Amount value must be greater than 0";
+            public const string BODY_ERROR = "Body detection error occured.";
 
             // <summary>
-            /// Represents body detected error notification description.
+            /// Represents body code detection error description.
             /// </summary>
-            public const string BODY_CODE_ERROR = "Amount value must be greater than 0";
+            public const string BODY_CODE_ERROR = "Body code detection error occured.";
 
             // <summary>
-            /// Represents body detected error notification description.
+            /// Represents chassis number detection error description.
             /// </summary>
-            public const string CHASSIS_NUM_ERROR = "Amount value must be greater than 0";
+            public const string CHASSIS_NUM_ERROR = "Chassis number detection error occured.";
 
             // <summary>
-            /// Represents body detected error notification description.
+            /// Represents color detection error description.
             /// </summary>
-            public const string COLOR_ERROR = "Amount value must be greater than 0";
+            public const string COLOR_ERROR = "Body detection error occured.";
 
             // <summary>
-            /// Represents body detected error notification description.
+            /// Represents first registration date detection error description.
             /// </summary>
-            public const string FIRST_REGISTRATION_DATE_ERROR = "Amount value must be greater than 0";
+            public const string FIRST_REGISTRATION_DATE_ERROR = "First registration date detection error occured.";
 
             // <summary>
-            /// Represents body detected error notification description.
+            /// Represents mark and model detection error description.
             /// </summary>
-            public const string MARK_AND_MODEL_ERROR = "Amount value must be greater than 0";
+            public const string MARK_AND_MODEL_ERROR = "Mark and model detection error occured.";
 
             // <summary>
-            /// Represents body detected error notification description.
+            /// Represents marticul number detection error description.
             /// </summary>
-            public const string RECEPTION_NUM_ERROR = "Amount value must be greater than 0";
+            public const string MARTICUL_NUM_ERROR = "Marticul number detection error occured.";
 
             // <summary>
-            /// Represents body detected error notification description.
+            /// Represents reception number detection error description.
             /// </summary>
-            public const string BSO_NUM_ERROR = "Amount value must be greater than 0";
+            public const string RECEPTION_NUM_ERROR = "Reception number detection error occured.";
 
             // <summary>
-            /// Represents body detected error notification description.
+            /// Represents so number detection error description.
             /// </summary>
-            public const string TYPE_ERROR = "Amount value must be greater than 0";
+            public const string SO_NUM_ERROR = "So number detection error occured.";
 
             // <summary>
-            /// Represents body detected error notification description.
+            /// Represents type detection error description.
             /// </summary>
-            public const string TYPE_CODE_ERROR = "Amount value must be greater than 0";
+            public const string TYPE_ERROR = "Type detection error occured.";
+
+            // <summary>
+            /// Represents type code detection error description.
+            /// </summary>
+            public const string TYPE_CODE_ERROR = "Type code detection error occured.";
         }
     }
 }

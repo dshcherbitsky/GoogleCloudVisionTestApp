@@ -14,11 +14,12 @@ namespace TechnicalCertificateImgHandler
         {
             this.annotationContext = annotationContext;
         }
-        public List<MatchedAnnotation> GetMatchedWords(IList<string> targetMatches)
+
+        public List<MatchedAnnotation> GetMatchedLabels(IList<string> labels)
         {
             List<MatchedAnnotation> result = new List<MatchedAnnotation>();
 
-            foreach (var type in targetMatches)
+            foreach (var type in labels)
             {
                 foreach (var block in annotationContext.Pages[0].Blocks)
                 {
@@ -32,7 +33,7 @@ namespace TechnicalCertificateImgHandler
                                 result.Add(new MatchedAnnotation() {
                                     MatchedWord = word,
                                     TargetValue = type,
-                                    TargetValueOrder = targetMatches.IndexOf(type)
+                                    TargetValueOrder = labels.IndexOf(type)
                                 });
 
                                 goto BreakLoops;
@@ -44,6 +45,26 @@ namespace TechnicalCertificateImgHandler
             }
 
             return result;
+        }
+
+        public Word GetMatchedLabel(string label)
+        {
+            foreach (var block in annotationContext.Pages[0].Blocks)
+            {
+                foreach (var paragraph in block.Paragraphs)
+                {
+                    foreach (var word in paragraph.Words)
+                    {
+                        string value = string.Join(string.Empty, word.Symbols.Select(sym => sym.Text));
+                        if (value == label)
+                        {
+                            return word;
+                        }
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

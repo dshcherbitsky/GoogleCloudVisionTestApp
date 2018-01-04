@@ -8,6 +8,8 @@ namespace TechnicalCertificateImgHandler.Abstractions
     /// </summary>
     public interface IWordMatcher
     {
-        List<MatchedAnnotation> GetMatchedWords(IList<string> targetMatches);
+        List<MatchedAnnotation> GetMatchedLabels(IList<string> targetMatches);
+
+        Word GetMatchedLabel(string label);
     }
 }

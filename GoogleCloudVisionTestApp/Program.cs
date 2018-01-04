@@ -21,6 +21,11 @@ namespace GoogleCloudVisionTestApp
             //var client = ImageAnnotatorClient.Create();
             //var response = client.DetectText(image);
 
+            //////////////////////////////////////////////////////////////////////////
+            // \d{3}\s*[.]\s*\d{3}\s*[.]\s*\d{3}
+            //[A-Z0-9]{4}\s*[A-Z0-9]{2}
+            //////////////////////////////////////////////////////////////////////////
+
             var image1 = Image.FromFile(@"C:\Users\home\Desktop\CarAuto\img1.jpg");
             var image2 = Image.FromFile(@"C:\Users\home\Desktop\CarAuto\img2.jpg");
             var image3 = Image.FromFile(@"C:\Users\home\Desktop\CarAuto\img3_rotated.jpg");
@@ -35,20 +40,9 @@ namespace GoogleCloudVisionTestApp
             {
                 var response = client.DetectDocumentText(img);
 
-                TechnicalCertificateImgHandler.Abstractions.IDocumentProcesser docProcesser = new TechnicalCertificateImgHandler.TechnicalCertificateImageProcesser(
-                    new TechnicalCertificateImgHandler.WordMatcher(response),
-                    new TechnicalCertificateImgHandler.TypeFinder(response),
-                    new TechnicalCertificateImgHandler.MarkAndModelFinder(response),
-                    new TechnicalCertificateImgHandler.ChassisNumFinder(response),
-                    new TechnicalCertificateImgHandler.BodyCodeFinder(response),
-                    new TechnicalCertificateImgHandler.ColorFinder(response),
-                    new TechnicalCertificateImgHandler.MatriculNumFinder(response),
-                    new TechnicalCertificateImgHandler.FirstRegistrationDateFinder(response),
-                    new TechnicalCertificateImgHandler.ReceptionNumFinder(response),
-                    new TechnicalCertificateImgHandler.SONumFinder(response),
-                    new TechnicalCertificateImgHandler.TechnicalCertificateValidatior());
+                TechnicalCertificateImageHandler.Infrastructure.Abstractions.IDocumentProcesser docProcesser = new TechnicalCertificateImageHandler.TechnicalCertificateImageProcesser(response);
 
-                TechnicalCertificateImgHandler.VehicleCertificateContentDTO result = docProcesser.Process();
+                TechnicalCertificateImageHandler.Infrastructure.Models.VehicleCertificateContentDTO result = docProcesser.Process();
                 
                 Console.WriteLine($"processed file# {images.IndexOf(img) + 1}");
                 Console.WriteLine("   - SO Num:         " + result.SONo);
@@ -61,7 +55,7 @@ namespace GoogleCloudVisionTestApp
                 Console.WriteLine("   - Chassis Num:    " + result.ChassisNum);
                 Console.WriteLine("   - Color:          " + result.Color);
                 Console.WriteLine("   - MatriculNum:    " + result.MatriculNum);
-                Console.WriteLine("   - Fr reg Date:    " + result.FirstRegistrationDate);
+                Console.WriteLine("   - Fst Reg Date:   " + result.FirstRegistrationDate);
                 Console.WriteLine();
             }
 

@@ -1,16 +1,16 @@
 ﻿using Google.Cloud.Vision.V1;
 using System;
 using System.Collections.Generic;
-using TechnicalCertificateImgHandler.Abstractions;
-using static TechnicalCertificateImgHandler.AppKeys.ApplicationKeys;
+using TechnicalCertificateImageHandler.Infrastructure.Abstractions;
+using static TechnicalCertificateImageHandler.AppKeys.ApplicationKeys;
 
-namespace TechnicalCertificateImgHandler
+namespace TechnicalCertificateImageHandler.Infrastructure.WordsFinders
 {
-    public class TypeFinder : IWordFinder
+    public class MarkAndModelFinder : IWordFinder
     {
         private readonly TextAnnotation annotationContext;
 
-        public TypeFinder(TextAnnotation annotationContext)
+        public MarkAndModelFinder(TextAnnotation annotationContext)
         {
             this.annotationContext = annotationContext;
         }
@@ -24,56 +24,56 @@ namespace TechnicalCertificateImgHandler
             double Y1 = 0;
             double Y2 = 0;
             double X = word.BoundingBox.Vertices[1].X;
-
+            
             switch (labelType)
             {
-                //Set "Art" label coordinates range.
+                //Set "Marke" label coordinates range.
                 case LabelTypes.Label_1_1:
                     Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.5);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 3.2);
-                    X = X + Math.Round(wordLenght * 10);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 3);
+                    X = X + Math.Round(wordLenght * 3.1);
                     break;
-                //Set "Fahrzeugs" label coordinates range.
+                //Set "Typ" label coordinates range.
                 case LabelTypes.Label_1_2:
                     Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 0.5);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 3.2);
-                    X = X + Math.Round(wordLenght * 2.2);
-                    break;
-                //Set "Genre" label coordinates range.
-                case LabelTypes.Label_2_1:
-                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.5);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 2.2);
-                    X = X + Math.Round(wordLenght * 2.5);
-                    break;
-                //Set "véhicule" label coordinates range.
-                case LabelTypes.Label_2_2:
-                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.5);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 2.2);
-                    X = X + Math.Round(wordLenght * 0.6);
-                    break;
-                //Set "Genere" label coordinates range.
-                case LabelTypes.Label_3_1:
-                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2.5);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.2);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 3);
                     X = X + Math.Round(wordLenght * 2.3);
                     break;
-                //Set "veicolo" label coordinates range.
-                case LabelTypes.Label_3_2:
-                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2.5);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.2);
-                    X = X + Math.Round(wordLenght * 0.8);
+                //Set "Marque" label coordinates range.
+                case LabelTypes.Label_2_1:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.2);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.6);
+                    X = X + Math.Round(wordLenght * 2.1);
                     break;
-                //Set "Gener" label coordinates range.
+                //Set "type" label coordinates range.
+                case LabelTypes.Label_2_2:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 1.2);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.6);
+                    X = X + Math.Round(wordLenght * 1.6);
+                    break;
+                //Set "Marca" label coordinates range.
+                case LabelTypes.Label_3_1:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.15);
+                    X = X + Math.Round(wordLenght * 3.2);
+                    break;
+                //Set "tipo" label coordinates range.
+                case LabelTypes.Label_3_2:
+                    Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 2);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 1.15);
+                    X = X + Math.Round(wordLenght * 3.1);
+                    break;
+                //Set "Marca" label coordinates range.
                 case LabelTypes.Label_4_1:
                     Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 3.5);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.2);
-                    X = X + Math.Round(wordLenght * 2.5);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.3);
+                    X = X + Math.Round(wordLenght * 5);
                     break;
-                //Set "vehichel" label coordinates range.
+                //Set "tig" label coordinates range.
                 case LabelTypes.Label_4_2:
                     Y1 = word.BoundingBox.Vertices[0].Y - Math.Round(wordHeight * 3.5);
-                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.2);
-                    X = X + Math.Round(wordLenght * 0.4);
+                    Y2 = word.BoundingBox.Vertices[3].Y + Math.Round(wordHeight * 0.3); ;
+                    X = X + Math.Round(wordLenght * 9);
                     break;
                 default:
                     // TODO Add log information
